@@ -104,7 +104,54 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	Stack s;
+	s.ll.head=NULL;
+	s.ll.size =0;
+
+	// ( : 1,  { : 2,  [ : 3
+	while(*expression != '\0') {
+		printf("현재 expression : %c\n", *expression);
+		if(*expression == '(') {
+			push(&s, 1);
+		}
+		if(*expression == ')') {
+			if(peek(&s) == 1) {
+				pop(&s);
+			}
+			else{
+				return 1;
+			}
+		}
+		if(*expression == '{') {
+			push(&s, 2);
+		}
+		if(*expression == '}') {
+			if(peek(&s) == 2) {
+				pop(&s);
+			}
+			else{
+				return 1;
+			}
+		}
+		if(*expression == '[') {
+			push(&s, 3);
+		}
+		if(*expression == ']') {
+			if(peek(&s) == 3) {
+				pop(&s);
+			}
+			else{
+				return 1;
+			}
+		}
+		expression += sizeof(char);
+	}
+	if(s.ll.size == 0) {
+		return 0;
+	}
+	else{
+		return 1;
+	}
 }
 
 ////////////////////////////////////////////////////////////

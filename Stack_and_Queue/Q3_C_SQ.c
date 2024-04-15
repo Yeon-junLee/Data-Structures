@@ -57,7 +57,7 @@ int main()
 	s.ll.size =0;
 	s.ll.tail =NULL;
 
-    c =1;
+    c = 1;
 
     printf("1: Insert an integer into the stack:\n");
     printf("2: Check the stack is pairwise consecutive:\n");
@@ -103,7 +103,41 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	if(s->ll.head == NULL) {
+		return 0;
+	}
+	if((s->ll).size % 2) {
+		return 0;
+	}
+	int firstNode = pop(s);
+	int cur = 0;
+	if(firstNode % 2) {		// 첫번째가 홀수인 경우
+		int check = 0;
+		while((s->ll).size != 0) {
+			cur = pop(s);
+			if(cur % 2 != check) {
+				return 0;
+			}
+			else {
+				check++;
+				check %= 2;
+			}
+		}
+	}
+	else {					// 첫번째가 짝수인 경우
+		int check = 1;
+		while((s->ll).size != 0) {
+			cur = pop(s);
+			if(cur % 2 != check) {
+				return 0;
+			}
+			else {
+				check++;
+				check %= 2;
+			}
+		}
+	}
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
