@@ -87,25 +87,49 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
-	if(*ptrHead == NULL) {
+	// Recursive Version
+
+	if(*ptrHead == NULL)
 		return;
+
+	ListNode* cur = *ptrHead;
+	ListNode* prev = NULL;
+	if(cur->next == NULL)
+		return;
+
+	while(cur->next != NULL && cur->next->next != cur) {
+		prev = cur;
+		cur = cur->next;
 	}
-	int idx = 0;
-	ListNode* curNode = *ptrHead;
-	ListNode* preNode = NULL;
-	while(curNode != NULL) {
-		if(idx == 0) {
-			preNode = curNode;
-			curNode = curNode->next;
-			idx++;
-			continue;
-		}
-		ListNode* temp = curNode;
-		preNode->next = temp->next;
-		temp->next = *ptrHead;
-		*ptrHead = temp;
-		curNode = preNode->next;
+
+	cur->next = prev;
+	if(cur != *ptrHead) {
+		RecursiveReverse(ptrHead);
 	}
+	*ptrHead = cur;
+
+
+	// Iterative Version
+	//
+	// if(*ptrHead == NULL) {
+	// 	return;
+	// }
+	// int idx = 0;
+	// ListNode* curNode = *ptrHead;
+	// ListNode* preNode = NULL;
+	// while(curNode != NULL) {
+	// 	if(idx == 0) {								// 첫 노드의 경우 방향을 바꿀 필요가 없으므로 
+	// 		preNode = curNode;
+	// 		curNode = curNode->next;
+	// 		idx++;
+	// 		continue;
+	// 	}
+	// 	ListNode* temp = curNode;					// temp 포인터를 통해 현재 노드를 가리키도록 만듦
+	// 	preNode->next = temp->next;					// 이전 노드가 현재 노드의 다음 노드를 가리키도록 만들어서 순회를 계속 돌 수 있게 만듦
+	// 	temp->next = *ptrHead;						// temp 포인터가 가리키는 노드(현재 노드)가 이전 노드를 가리키도록 만듦
+	// 	*ptrHead = temp;							// head를 가리키는 포인터가 현재 방문 중인(방향을 바꾼) 노드를 가리키도록 만듦
+	// 	curNode = preNode->next;					// 현재 방문하는 노드를 preNode의 다음 노드로 바꿈
+	// }
 }
 
 //////////////////////////////////////////////////////////////////////////////////
