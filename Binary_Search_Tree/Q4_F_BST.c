@@ -94,15 +94,15 @@ void postOrderIterativeS1(BSTNode *root)
 	BSTNode* curNode = root;
 	Stack* s = (Stack*)malloc(sizeof(Stack));
 	s->top = NULL;
-	BSTNode* lastVisited;								// 가장 최근에 출력한 노드(방문한 노드를 다시 스택에 넣지 않기 위함)
+	BSTNode* lastVisited;														// 가장 최근에 출력한 노드(방문한 노드를 다시 스택에 넣지 않기 위함)
 
-	while(curNode != NULL || !isEmpty(s)) {				// curNode가 NULL이 아니거나 stack이 차있는 동안
-		if(curNode != NULL) {							// 현재 방문한 노드가 NULL이 아닌 경우
-			push(s, curNode);							// stack에 push한 뒤
-			curNode = curNode->left;					// 왼쪽 노드를 방문
+	while(curNode != NULL || !isEmpty(s)) {										// curNode가 NULL이 아니거나 stack이 차있는 동안
+		if(curNode != NULL) {													// 현재 방문한 노드가 NULL이 아닌 경우
+			push(s, curNode);													// stack에 push한 뒤
+			curNode = curNode->left;											// 왼쪽 노드를 방문
 		}
-		else {											// 현재 방문한 노드가 NULL인 경우
-			BSTNode* topNode = peek(s);							// 바로 이전에 방문한 NULL이 아닌 노드(stack의 top에 위치한 노드)
+		else {																	// 현재 방문한 노드가 NULL인 경우
+			BSTNode* topNode = peek(s);											// 바로 이전에 방문한 NULL이 아닌 노드(stack의 top에 위치한 노드)
 			if(topNode->right != NULL && topNode->right != lastVisited) {		// 바로 이전에 방문한 노드의 오른쪽이 비어있지 않고, 최근에 출력한 노드가 아니라면
 				curNode = topNode->right;										// 오른쪽 노드 방문
 			}
